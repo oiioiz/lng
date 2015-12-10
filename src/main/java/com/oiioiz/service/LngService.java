@@ -1,5 +1,9 @@
 package com.oiioiz.service;
 
+import com.oiioiz.entity.DrawInfo;
+
 public interface LngService {
-	int getLastRound();
+	DrawInfo getRoundInfo(int round);
+	
+	public int[] getMostWinningNumbers(boolean withBonusNumber);
 }
