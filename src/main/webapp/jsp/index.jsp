@@ -39,7 +39,7 @@ span.draw-ball {
 	<div class="container theme-showcase" role="main">
 
 		<div class="page-header">
-			<h2>qwe</h2>
+			<h2>qwre</h2>
 		</div>
 		<form name="roundForm" method="get" action="/">
 			<div class="input-group">
@@ -193,6 +193,8 @@ span.draw-ball {
 	<script src="webjars/jquery/2.1.4/dist/jquery.min.js"></script>
 	<!-- Bootstrap 3.3.5 -->
 	<script src="webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js"></script>
+	<!-- lng -->
+	<script src="resources/js/lng.js"></script>
 </body>
 
 
