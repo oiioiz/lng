@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -36,7 +39,7 @@ public class LngServiceImpl implements LngService {
 	}
 
 	@Override
-	public int[] getMostWinningNumbers(boolean withBonusNumber) {
+	public List<Integer> getMostWinningNumbers(boolean withBonusNumber, String sort) {
 
 		List<DrawInfo> drawList = drawInfoRepository.findAll();
 
@@ -54,7 +57,7 @@ public class LngServiceImpl implements LngService {
 			}
 		}
 
-		int[] rankNumbers = new int[46];
+		Map<Integer, Integer> rankNumbers = new HashMap<Integer, Integer>();
 
 		for (int i = 1; i < drawNumbers.length; i++) {
 			int temp = 0;
@@ -65,14 +68,32 @@ public class LngServiceImpl implements LngService {
 				}
 			}
 
-			rankNumbers[temp] = i;
+			rankNumbers.put(i, temp);
 		}
-		
-		int[] mostWinningNumber = {rankNumbers[40], rankNumbers[41], rankNumbers[42], rankNumbers[43], rankNumbers[44], rankNumbers[45]};
 
-		Arrays.sort(mostWinningNumber);
-		
-		return mostWinningNumber;
+		List<Integer> winningNumber = new ArrayList<Integer>();
+
+		if ("desc".equals(sort)) {
+			for (int i = 45; i >= 1; i--) {
+				setWinningNumbers(rankNumbers, i, winningNumber);
+			}
+		} else {
+			for (int i = 1; i <= 45; i++) {
+				setWinningNumbers(rankNumbers, i, winningNumber);
+			}
+		}
+
+		Collections.sort(winningNumber);
+
+		return winningNumber;
+	}
+
+	private void setWinningNumbers(Map<Integer, Integer> rankNumbers, int idx, List<Integer> winningNumber) {
+		for (int j = 1; j <= 45; j++) {
+			if (rankNumbers.get(j) == idx && winningNumber.size() < 6) {
+				winningNumber.add(j);
+			}
+		}
 	}
 
 	private void checkLastRound() {
@@ -122,6 +143,10 @@ public class LngServiceImpl implements LngService {
 			ObjectMapper om = new ObjectMapper();
 
 			drawInfo = om.readValue(response.toString(), DrawInfo.class);
+
+			if (round == 0) {
+				nanumLastRound = drawInfo.getDrwNo();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
