@@ -57,6 +57,26 @@ public class LngServiceImpl implements LngService {
 			}
 		}
 
+		Map<Integer, Integer> rankNumbers = getRankNumbers(drawNumbers);
+
+		List<Integer> winningNumber = new ArrayList<Integer>();
+
+		if ("desc".equals(sort)) {
+			for (int i = 45; i >= 1; i--) {
+				setWinningNumbers(rankNumbers, i, winningNumber);
+			}
+		} else {
+			for (int i = 1; i <= 45; i++) {
+				setWinningNumbers(rankNumbers, i, winningNumber);
+			}
+		}
+
+		Collections.sort(winningNumber);
+
+		return winningNumber;
+	}
+
+	private Map<Integer, Integer> getRankNumbers(int[] drawNumbers) {
 		Map<Integer, Integer> rankNumbers = new HashMap<Integer, Integer>();
 
 		for (int i = 1; i < drawNumbers.length; i++) {
@@ -70,17 +90,45 @@ public class LngServiceImpl implements LngService {
 
 			rankNumbers.put(i, temp);
 		}
+		return rankNumbers;
+	}
+
+	@Override
+	public List<Integer> getAppearanceWinningNumbers(boolean withBonusNumber) {
+		List<DrawInfo> drawList = drawInfoRepository.findAllByOrderByDrwNoDesc();
+
+		int[] drawNumbers = new int[46];
+
+		for (int i = 0; i < drawList.size(); i++) {
+			DrawInfo drawInfo = drawList.get(i);
+
+			for (int j = 1; j < drawNumbers.length; j++) {
+
+				if (withBonusNumber) {
+					if (drawInfo.getDrwtNo1() == j || drawInfo.getDrwtNo2() == j || drawInfo.getDrwtNo3() == j
+							|| drawInfo.getDrwtNo4() == j || drawInfo.getDrwtNo5() == j || drawInfo.getDrwtNo6() == j || drawInfo.getBnusNo() == j) {
+						if(drawNumbers[j] == 0){
+							drawNumbers[j] = drawInfo.getDrwNo();
+						}
+					}
+				}else{
+					if (drawInfo.getDrwtNo1() == j || drawInfo.getDrwtNo2() == j || drawInfo.getDrwtNo3() == j
+							|| drawInfo.getDrwtNo4() == j || drawInfo.getDrwtNo5() == j || drawInfo.getDrwtNo6() == j ) {
+						if(drawNumbers[j] == 0){
+							drawNumbers[j] = drawInfo.getDrwNo();
+						}
+					}
+				}
+
+			}
+		}
+		
+		Map<Integer, Integer> rankNumbers = getRankNumbers(drawNumbers);
 
 		List<Integer> winningNumber = new ArrayList<Integer>();
 
-		if ("desc".equals(sort)) {
-			for (int i = 45; i >= 1; i--) {
-				setWinningNumbers(rankNumbers, i, winningNumber);
-			}
-		} else {
-			for (int i = 1; i <= 45; i++) {
-				setWinningNumbers(rankNumbers, i, winningNumber);
-			}
+		for (int i = 1; i <= 45; i++) {
+			setWinningNumbers(rankNumbers, i, winningNumber);
 		}
 
 		Collections.sort(winningNumber);

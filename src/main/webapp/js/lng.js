@@ -68,4 +68,5 @@ var fn_getLastDrawInfo = function() {
 $(document).ready(function() {
 	fn_getLastDrawInfo();
 	$('ul[data-role="ui-most-winning-sort"]').find('a:first').click();
+	$('ul[data-role="ui-with-bonus-number"]').find('a:first').click();
 });

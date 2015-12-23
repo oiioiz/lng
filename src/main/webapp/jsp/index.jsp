@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>title</title>
+<title>LNG</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -70,17 +70,27 @@ ul.inline-ul {
 			</ul>
 
 			<ul class="nav nav-pills inline-ul" data-role="ui-with-bonus-number">
-				<li role="presentation" class="active"><a href="javascript:void(0);"
-					data-with-bonus-number="true" class="glyphicon glyphicon-eye-open"></a></li>
+				<li role="presentation" class="active"><a
+					href="javascript:void(0);" data-with-bonus-number="true"
+					class="glyphicon glyphicon-eye-open"></a></li>
 				<li role="presentation"><a href="javascript:void(0);"
-					data-with-bonus-number="false" class="glyphicon glyphicon glyphicon-eye-close"></a></li>
+					data-with-bonus-number="false"
+					class="glyphicon glyphicon glyphicon-eye-close"></a></li>
 			</ul>
 			<h3 data-role="ui-ball-list"></h3>
 			<hr>
 		</div>
-		
+
 		<div class="cont" data-role="ui-appearance-info">
-		
+			<ul class="nav nav-pills inline-ul" data-role="ui-with-bonus-number">
+				<li role="presentation"><a href="javascript:void(0);"
+					data-with-bonus-number="true" class="glyphicon glyphicon-eye-open"></a></li>
+				<li role="presentation"><a href="javascript:void(0);"
+					data-with-bonus-number="false"
+					class="glyphicon glyphicon glyphicon-eye-close"></a></li>
+			</ul>
+			<h3 data-role="ui-ball-list"></h3>
+			<hr>
 		</div>
 
 	</div>
@@ -95,6 +105,4 @@ ul.inline-ul {
 	<script src="js/lng.js"></script>
 	<script src="js/event.js"></script>
 </body>
-
-
 </html>

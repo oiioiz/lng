@@ -3,6 +3,7 @@ package com.oiioiz.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oiioiz.entity.DrawInfo;
 import com.oiioiz.service.LngService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class ApiController {
@@ -24,12 +26,20 @@ public class ApiController {
 
 		return drawInfo;
 	}
-	
+
 	@RequestMapping(value = "/most/{withBonusNumber}/{sort}", method = RequestMethod.GET)
 	public List<Integer> getMostWinningNumbers(@PathVariable boolean withBonusNumber, @PathVariable String sort) {
 
-		List<Integer> mostWinningNumbers = lngService.getMostWinningNumbers(withBonusNumber, sort);
+		List<Integer> winningNumbers = lngService.getMostWinningNumbers(withBonusNumber, sort);
 
-		return mostWinningNumbers;
+		return winningNumbers;
+	}
+
+	@RequestMapping(value = "/appearance/{withBonusNumber}", method = RequestMethod.GET)
+	public List<Integer> getAppearanceWinningNumbers(@PathVariable boolean withBonusNumber) {
+
+		List<Integer> winningNumbers = lngService.getAppearanceWinningNumbers(withBonusNumber);
+
+		return winningNumbers;
 	}
 }

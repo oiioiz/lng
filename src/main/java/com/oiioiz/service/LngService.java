@@ -9,4 +9,5 @@ public interface LngService {
 	
 	public List<Integer> getMostWinningNumbers(boolean withBonusNumber, String sort);
 	
+	public List<Integer> getAppearanceWinningNumbers(boolean withBonusNumber);
 }
